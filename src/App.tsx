@@ -1,14 +1,19 @@
-import { Box, CssBaseline, Paper, Typography } from "@mui/material";
 import React from "react";
+import { Route, Routes } from "react-router-dom";
 
 import { Landing } from "./pages";
-import { SidebarLayout } from "./pages/shared";
+import { ROUTES } from "./util-routes/routes";
 
 function App() {
   return (
-    <>
-      <Landing />
-    </>
+    <div className="App">
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        {ROUTES.map((r, key) => (
+          <Route key={key} {...r} />
+        ))}
+      </Routes>
+    </div>
   );
 }
 

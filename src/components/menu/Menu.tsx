@@ -10,20 +10,40 @@ import {
   Toolbar,
 } from "@mui/material";
 import React from "react";
+import { Link } from "react-router-dom";
+
+import { Navigation } from "../../util-navigation/navigation";
+
+interface MenuItem {
+  title: string;
+  path: string;
+  icon: React.ReactNode;
+}
+
+const menuItems: Array<MenuItem> = [
+  {
+    title: "Landing",
+    path: Navigation.LANDING.path,
+    icon: <InboxIcon />,
+  },
+  {
+    title: "Inbox",
+    path: Navigation.LANDING.path,
+    icon: <MailIcon />,
+  },
+];
 
 export default function Menu() {
   return (
     <div>
-      <Toolbar />
+      <Toolbar>Menu</Toolbar>
       <Divider />
       <List>
-        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-          <ListItem key={text} disablePadding>
+        {menuItems.map((item, index) => (
+          <ListItem key={index} disablePadding component={Link} to={item.path}>
             <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
+              <ListItemIcon children={item.icon} />
+              <ListItemText primary={item.title} />
             </ListItemButton>
           </ListItem>
         ))}
