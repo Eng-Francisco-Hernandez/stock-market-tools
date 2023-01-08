@@ -1,14 +1,15 @@
-import React from "react";
 import { Box, CssBaseline, Paper, Typography } from "@mui/material";
-import { SidebarLayout } from "./pages/shared";
+import React from "react";
+
 import { Landing } from "./pages";
+import { SidebarLayout } from "./pages/shared";
 
 function App() {
-    return (
-        <>
-            <Landing />
-        </>
-    );
+  return (
+    <>
+      <Landing />
+    </>
+  );
 }
 
 export default App;
