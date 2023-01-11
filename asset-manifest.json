@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/stock-market-tools/static/css/main.31d6cfe0.css",
+    "main.js": "/stock-market-tools/static/js/main.4ea2fb31.js",
+    "static/js/787.99f9529f.chunk.js": "/stock-market-tools/static/js/787.99f9529f.chunk.js",
+    "index.html": "/stock-market-tools/index.html",
+    "main.4ea2fb31.js.map": "/stock-market-tools/static/js/main.4ea2fb31.js.map",
+    "787.99f9529f.chunk.js.map": "/stock-market-tools/static/js/787.99f9529f.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.31d6cfe0.css",
+    "static/js/main.4ea2fb31.js"
+  ]
+}
