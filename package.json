@@ -14,6 +14,7 @@
     "@types/node": "^16.18.3",
     "@types/react": "^18.0.24",
     "@types/react-dom": "^18.0.8",
+    "gh-pages": "^4.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "6",
@@ -23,7 +24,10 @@
     "typescript": "^4.8.4",
     "web-vitals": "^2.1.4"
   },
+  "homepage": "https://Eng-Francisco-Hernandez.github.io/stock-market-tools",
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
