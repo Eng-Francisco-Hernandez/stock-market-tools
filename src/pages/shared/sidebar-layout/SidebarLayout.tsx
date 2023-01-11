@@ -15,7 +15,7 @@ interface SidebarLayoutProps {
   children: React.ReactNode;
 }
 
-const drawerWidth = 240;
+const drawerWidth = 200;
 
 export default function ResponsiveDrawer({
   title,
