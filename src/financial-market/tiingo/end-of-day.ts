@@ -1,3 +1,5 @@
+import axios from "axios";
+
 import TiingoClient from "./tiingo-client";
 
 const endOfDay = {
@@ -9,14 +11,14 @@ const endOfDay = {
     const headers = {
       Authorization: `Token ${this.token}`,
     };
-    const response = await fetch(
+    const options = {
+      headers: headers,
+    };
+    const response = await axios.get(
       `${this.baseUrl}/tiingo/daily/${ticker}/prices?startDate=${startDate}`,
-      {
-        method: "GET",
-        headers: headers,
-      }
+      options
     );
-    const data = await response.json();
+    const data = response.data;
     return data;
   },
 };

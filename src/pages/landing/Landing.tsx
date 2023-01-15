@@ -1,16 +1,16 @@
-import { Box, Container, Grid } from "@mui/material";
+import { CircularProgress, Grid } from "@mui/material";
 import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Area,
   AreaChart,
   CartesianGrid,
   ResponsiveContainer,
   Tooltip,
-  XAxis,
   YAxis,
 } from "recharts";
+import { CurveType } from "recharts/types/shape/Curve";
 
 import { TiingoClient } from "../../financial-market";
 import { SidebarLayout } from "../shared";
@@ -26,135 +26,130 @@ const Item = styled(Paper)(({ theme }) => ({
   height: "100%",
 }));
 
-const data = [
-  {
-    name: "Page A",
-    uv: 4000,
-    pv: 2400,
-    amt: 2400,
-  },
-  {
-    name: "Page B",
-    uv: 3000,
-    pv: 1398,
-    amt: 2210,
-  },
-  {
-    name: "Page C",
-    uv: 2000,
-    pv: 9800,
-    amt: 2290,
-  },
-  {
-    name: "Page D",
-    uv: 2780,
-    pv: 3908,
-    amt: 2000,
-  },
-  {
-    name: "Page E",
-    uv: 1890,
-    pv: 4800,
-    amt: 2181,
-  },
-  {
-    name: "Page F",
-    uv: 2390,
-    pv: 3800,
-    amt: 2500,
-  },
-  {
-    name: "Page G",
-    uv: 3490,
-    pv: 4300,
-    amt: 2100,
-  },
-];
+export interface GraphItem {
+  date: Date;
+  close: number;
+  high: number;
+  low: number;
+  open: number;
+  volume: number;
+  adjClose: number;
+  adjHigh: number;
+  adjLow: number;
+  adjOpen: number;
+  adjVolume: number;
+  divCash: number;
+  splitFactor: number;
+}
+
+interface GraphSettings {
+  data: GraphItem[];
+  strokeWidth: number;
+  type: CurveType;
+  dataKey: string;
+  stroke: string;
+  fill: string;
+}
 
 export default function Landing() {
+  const [landingGraphsData, setLandingGraphsData] = useState<{
+    spy: GraphItem[];
+    qqq: GraphItem[];
+    dia: GraphItem[];
+  }>({
+    spy: [],
+    qqq: [],
+    dia: [],
+  });
+  const [landingGraphsLoading, setLandingGraphsLoading] = useState(false);
+
   useEffect(() => {
-    async function fetchData() {
-      const tingoclient = new TiingoClient(
-        process.env.REACT_APP_TIINGO_API_KEY!
-      );
-      const response = await tingoclient.getStockPrice("2023-01-05", "TSLA");
-      console.log(JSON.stringify(response));
+    async function fetchTickerData(
+      sinceDate: string,
+      ticker: string
+    ): Promise<GraphItem[]> {
+      const tingoclient = new TiingoClient();
+      const response = await tingoclient.getStockPrice(sinceDate, ticker);
+      return response;
     }
-    fetchData();
+    async function setGraphsData() {
+      setLandingGraphsLoading(true);
+      const today = new Date();
+      const startingDate = new Date(today.setDate(today.getDate() - 180));
+      const strStartingDate = startingDate.toISOString().split("T")[0];
+      const data = {
+        spy: await fetchTickerData(strStartingDate, "spy"),
+        qqq: await fetchTickerData(strStartingDate, "qqq"),
+        dia: await fetchTickerData(strStartingDate, "dia"),
+      };
+      setLandingGraphsData(data);
+      setLandingGraphsLoading(false);
+    }
+    setGraphsData();
   }, []);
+
+  const graphItems: GraphSettings[] = [
+    {
+      data: landingGraphsData.spy,
+      strokeWidth: 2,
+      type: "monotone",
+      dataKey: "close",
+      stroke: "#37c16c",
+      fill: "#309c5e",
+    },
+    {
+      data: landingGraphsData.qqq,
+      strokeWidth: 2,
+      type: "monotone",
+      dataKey: "close",
+      stroke: "#37c16c",
+      fill: "#309c5e",
+    },
+    {
+      data: landingGraphsData.dia,
+      strokeWidth: 2,
+      type: "monotone",
+      dataKey: "close",
+      stroke: "#37c16c",
+      fill: "#309c5e",
+    },
+  ];
 
   return (
     <SidebarLayout title="Landing page">
       <Grid container spacing={2}>
-        <Grid item xs={4}>
-          <ResponsiveContainer width="100%" height={200}>
-            <AreaChart
-              data={data}
-              margin={{
-                top: 10,
-                right: 30,
-                left: 0,
-                bottom: 0,
-              }}
-            >
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <Tooltip />
-              <Area
-                type="monotone"
-                dataKey="uv"
-                stroke="#8884d8"
-                fill="#8884d8"
-              />
-            </AreaChart>
-          </ResponsiveContainer>
-        </Grid>
-        <Grid item xs={4}>
-          <ResponsiveContainer width="100%" height={200}>
-            <AreaChart
-              data={data}
-              margin={{
-                top: 10,
-                right: 30,
-                left: 0,
-                bottom: 0,
-              }}
-            >
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <Tooltip />
-              <Area
-                type="monotone"
-                dataKey="uv"
-                stroke="#8884d8"
-                fill="#8884d8"
-              />
-            </AreaChart>
-          </ResponsiveContainer>
-        </Grid>
-        <Grid item xs={4}>
-          <ResponsiveContainer width="100%" height={200}>
-            <AreaChart
-              data={data}
-              margin={{
-                top: 10,
-                right: 30,
-                left: 0,
-                bottom: 0,
-              }}
-            >
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <Tooltip />
-              <Area
-                type="monotone"
-                dataKey="uv"
-                stroke="#8884d8"
-                fill="#8884d8"
-              />
-            </AreaChart>
-          </ResponsiveContainer>
-        </Grid>
+        {graphItems.map((graphItem) => {
+          return (
+            <Grid item xs={4}>
+              <ResponsiveContainer width="100%" height={200}>
+                {!landingGraphsLoading ? (
+                  <AreaChart
+                    data={graphItem.data}
+                    margin={{
+                      top: 10,
+                      right: 30,
+                      left: 0,
+                      bottom: 0,
+                    }}
+                  >
+                    <CartesianGrid strokeDasharray="3 3" horizontal={false} />
+                    <YAxis type="number" domain={["dataMin", "dataMax"]} hide />
+                    <Tooltip />
+                    <Area
+                      strokeWidth={graphItem.strokeWidth}
+                      type={graphItem.type}
+                      dataKey={graphItem.dataKey}
+                      stroke={graphItem.stroke}
+                      fill={graphItem.fill}
+                    />
+                  </AreaChart>
+                ) : (
+                  <CircularProgress color="success" className="centered-item" />
+                )}
+              </ResponsiveContainer>
+            </Grid>
+          );
+        })}
         <Grid item xs={12}>
           <Item>xs=8</Item>
         </Grid>
