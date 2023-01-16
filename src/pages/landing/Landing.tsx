@@ -14,6 +14,7 @@ import { CurveType } from "recharts/types/shape/Curve";
 
 import { TiingoClient } from "../../financial-market";
 import { SidebarLayout } from "../shared";
+import * as data from "./mocked-data.json";
 
 import "./landing.scss";
 
@@ -43,6 +44,7 @@ export interface GraphItem {
 }
 
 interface GraphSettings {
+  title: string;
   data: GraphItem[];
   strokeWidth: number;
   type: CurveType;
@@ -61,35 +63,38 @@ export default function Landing() {
     qqq: [],
     dia: [],
   });
+
   const [landingGraphsLoading, setLandingGraphsLoading] = useState(false);
 
   useEffect(() => {
-    async function fetchTickerData(
-      sinceDate: string,
-      ticker: string
-    ): Promise<GraphItem[]> {
-      const tingoclient = new TiingoClient();
-      const response = await tingoclient.getStockPrice(sinceDate, ticker);
-      return response;
-    }
-    async function setGraphsData() {
-      setLandingGraphsLoading(true);
-      const today = new Date();
-      const startingDate = new Date(today.setDate(today.getDate() - 180));
-      const strStartingDate = startingDate.toISOString().split("T")[0];
-      const data = {
-        spy: await fetchTickerData(strStartingDate, "spy"),
-        qqq: await fetchTickerData(strStartingDate, "qqq"),
-        dia: await fetchTickerData(strStartingDate, "dia"),
-      };
-      setLandingGraphsData(data);
-      setLandingGraphsLoading(false);
-    }
-    setGraphsData();
+    // async function fetchTickerData(
+    //   sinceDate: string,
+    //   ticker: string
+    // ): Promise<GraphItem[]> {
+    //   const tingoclient = new TiingoClient();
+    //   const response = await tingoclient.getStockPrice(sinceDate, ticker);
+    //   return response;
+    // }
+    // async function setGraphsData() {
+    //   setLandingGraphsLoading(true);
+    //   const today = new Date();
+    //   const startingDate = new Date(today.setDate(today.getDate() - 180));
+    //   const strStartingDate = startingDate.toISOString().split("T")[0];
+    //   const data = {
+    //     spy: await fetchTickerData(strStartingDate, "spy"),
+    //     qqq: await fetchTickerData(strStartingDate, "qqq"),
+    //     dia: await fetchTickerData(strStartingDate, "dia"),
+    //   };
+    //   setLandingGraphsData(data);
+    //   setLandingGraphsLoading(false);
+    // }
+    // setGraphsData();
+    setLandingGraphsData(data as any);
   }, []);
 
   const graphItems: GraphSettings[] = [
     {
+      title: "S&P 500",
       data: landingGraphsData.spy,
       strokeWidth: 2,
       type: "monotone",
@@ -98,6 +103,7 @@ export default function Landing() {
       fill: "#309c5e",
     },
     {
+      title: "QQQ",
       data: landingGraphsData.qqq,
       strokeWidth: 2,
       type: "monotone",
@@ -106,6 +112,7 @@ export default function Landing() {
       fill: "#309c5e",
     },
     {
+      title: "DOW",
       data: landingGraphsData.dia,
       strokeWidth: 2,
       type: "monotone",
@@ -116,37 +123,47 @@ export default function Landing() {
   ];
 
   return (
-    <SidebarLayout title="Landing page">
+    <SidebarLayout title="Stock Market Tools">
       <Grid container spacing={2}>
-        {graphItems.map((graphItem) => {
+        {graphItems.map((graphItem, i) => {
           return (
-            <Grid item xs={4}>
-              <ResponsiveContainer width="100%" height={200}>
-                {!landingGraphsLoading ? (
-                  <AreaChart
-                    data={graphItem.data}
-                    margin={{
-                      top: 10,
-                      right: 30,
-                      left: 0,
-                      bottom: 0,
-                    }}
-                  >
-                    <CartesianGrid strokeDasharray="3 3" horizontal={false} />
-                    <YAxis type="number" domain={["dataMin", "dataMax"]} hide />
-                    <Tooltip />
-                    <Area
-                      strokeWidth={graphItem.strokeWidth}
-                      type={graphItem.type}
-                      dataKey={graphItem.dataKey}
-                      stroke={graphItem.stroke}
-                      fill={graphItem.fill}
+            <Grid key={i} item xs={4}>
+              <Item>
+                <div>{graphItem.title}</div>
+                <ResponsiveContainer width="100%" height={200}>
+                  {!landingGraphsLoading ? (
+                    <AreaChart
+                      data={graphItem.data}
+                      margin={{
+                        top: 0,
+                        right: 0,
+                        left: 0,
+                        bottom: 0,
+                      }}
+                    >
+                      <CartesianGrid strokeDasharray="3 3" horizontal={false} />
+                      <YAxis
+                        type="number"
+                        domain={["dataMin", "dataMax"]}
+                        hide
+                      />
+                      <Tooltip />
+                      <Area
+                        strokeWidth={graphItem.strokeWidth}
+                        type={graphItem.type}
+                        dataKey={graphItem.dataKey}
+                        stroke={graphItem.stroke}
+                        fill={graphItem.fill}
+                      />
+                    </AreaChart>
+                  ) : (
+                    <CircularProgress
+                      color="success"
+                      className="centered-item"
                     />
-                  </AreaChart>
-                ) : (
-                  <CircularProgress color="success" className="centered-item" />
-                )}
-              </ResponsiveContainer>
+                  )}
+                </ResponsiveContainer>
+              </Item>
             </Grid>
           );
         })}

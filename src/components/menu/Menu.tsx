@@ -1,5 +1,4 @@
-import MailIcon from "@mui/icons-material/Mail";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
+import HomeIcon from "@mui/icons-material/Home";
 import {
   Divider,
   List,
@@ -22,28 +21,33 @@ interface MenuItem {
 
 const menuItems: Array<MenuItem> = [
   {
-    title: "Landing",
+    title: "Home",
     path: Navigation.LANDING.path,
-    icon: <InboxIcon />,
-  },
-  {
-    title: "Inbox",
-    path: Navigation.LANDING.path,
-    icon: <MailIcon />,
+    icon: <HomeIcon />,
   },
 ];
 
 export default function Menu() {
   return (
     <div>
-      <Toolbar>Menu</Toolbar>
+      <Toolbar></Toolbar>
       <Divider />
       <List>
         {menuItems.map((item, index) => (
           <ListItem key={index} disablePadding component={Link} to={item.path}>
             <ListItemButton>
-              <ListItemIcon children={item.icon} />
-              <ListItemText primary={item.title} />
+              <ListItemIcon
+                sx={{
+                  color: "primary.dark",
+                }}
+                children={item.icon}
+              />
+              <ListItemText
+                sx={{
+                  color: "primary.main",
+                }}
+                primary={item.title}
+              />
             </ListItemButton>
           </ListItem>
         ))}
