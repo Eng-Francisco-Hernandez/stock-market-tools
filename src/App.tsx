@@ -7,6 +7,7 @@ import { Route, Routes } from "react-router-dom";
 
 import { Landing } from "./pages";
 import { ROUTES } from "./util-routes/routes";
+import "./theme/main.scss";
 
 const customTheme = createTheme({
   palette: {
