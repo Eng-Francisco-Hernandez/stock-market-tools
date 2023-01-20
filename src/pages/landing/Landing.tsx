@@ -203,7 +203,7 @@ export default function Landing() {
                   <CardMedia
                     sx={{ height: 150 }}
                     image={newsItem.images[0].url}
-                    title="green iguana"
+                    title="news image"
                   />
                   <CardContent>
                     <Typography gutterBottom variant="h5" component="div">
