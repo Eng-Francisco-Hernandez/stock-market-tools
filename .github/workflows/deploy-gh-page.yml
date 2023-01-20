@@ -25,10 +25,11 @@ jobs:
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: ${{ runner.os }}-yarn-
       - name: Install Dependencies
-        run: yarn
+        run: yarn install
       - name: Build website
         run: npm run build
         env:
+          CI: false
           REACT_APP_TIINGO_API_KEY: ${{ secrets.REACT_APP_TIINGO_API_KEY }}
           REACT_APP_ALPACA_MARKETS_HOST: ${{ secrets.REACT_APP_ALPACA_MARKETS_HOST }}
           REACT_APP_ALPACA_KEY_ID: ${{ secrets.REACT_APP_ALPACA_KEY_ID }}
