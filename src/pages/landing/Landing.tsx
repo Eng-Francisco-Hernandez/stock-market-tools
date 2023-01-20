@@ -76,6 +76,7 @@ export default function Landing() {
       setNewsLoading(true);
       const newsData = await alpacaClient.getNews(startDate, endDate, 6);
       setLatestNews(newsData.news);
+      setNewsLoading(false);
     }
     setInitialData();
   }, []);
@@ -197,26 +198,32 @@ export default function Landing() {
         {latestNews.map((newsItem, i) => {
           return (
             <Grid key={i} item xs={6} container alignItems="stretch">
-              <Card>
-                <CardMedia
-                  sx={{ height: 150 }}
-                  image={newsItem.images[0].url}
-                  title="green iguana"
-                />
-                <CardContent>
-                  <Typography gutterBottom variant="h5" component="div">
-                    {newsItem.headline}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    {newsItem.summary}
-                  </Typography>
-                </CardContent>
-                <CardActions>
-                  <Button size="small" href={newsItem.url} target="_blank">
-                    Learn More
-                  </Button>
-                </CardActions>
-              </Card>
+              {!newsLoading ? (
+                <Card>
+                  <CardMedia
+                    sx={{ height: 150 }}
+                    image={newsItem.images[0].url}
+                    title="green iguana"
+                  />
+                  <CardContent>
+                    <Typography gutterBottom variant="h5" component="div">
+                      {newsItem.headline}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      {newsItem.summary}
+                    </Typography>
+                  </CardContent>
+                  <CardActions>
+                    <Button size="small" href={newsItem.url} target="_blank">
+                      Learn More
+                    </Button>
+                  </CardActions>
+                </Card>
+              ) : (
+                <div className="centered-item">
+                  <CircularProgress color="success" />
+                </div>
+              )}
             </Grid>
           );
         })}
