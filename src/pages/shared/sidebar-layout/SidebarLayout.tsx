@@ -15,7 +15,7 @@ interface SidebarLayoutProps {
   children: React.ReactNode;
 }
 
-const drawerWidth = 240;
+const drawerWidth = 200;
 
 export default function ResponsiveDrawer({
   title,
@@ -35,6 +35,7 @@ export default function ResponsiveDrawer({
         sx={{
           width: { sm: `calc(100% - ${drawerWidth}px)` },
           ml: { sm: `${drawerWidth}px` },
+          color: "primary.light",
         }}
       >
         <Toolbar>

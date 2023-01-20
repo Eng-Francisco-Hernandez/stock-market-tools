@@ -1,0 +1,23 @@
+.mt {
+  &-sm {
+    margin-top: 5px;
+  }
+  &-md {
+    margin-top: 10px;
+  }
+  &-lg {
+    margin-top: 15px;
+  }
+}
+
+.mr {
+  &-sm {
+    margin-right: 5px;
+  }
+  &-md {
+    margin-right: 10px;
+  }
+  &-lg {
+    margin-right: 15px;
+  }
+}
