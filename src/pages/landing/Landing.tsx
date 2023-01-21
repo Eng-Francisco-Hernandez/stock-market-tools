@@ -23,6 +23,7 @@ import {
   YAxis,
 } from "recharts";
 
+import newsImagePlaceholder from "../../assets/images/money-banner-placeholder.jpg";
 import { GraphTooltip } from "../../components";
 import { AlpacaClient, TiingoClient } from "../../financial-market";
 import { graphsDescriptions } from "../../util-constants";
@@ -202,7 +203,11 @@ export default function Landing() {
                 <Card>
                   <CardMedia
                     sx={{ height: 150 }}
-                    image={newsItem.images[0].url}
+                    image={
+                      newsItem.images.length
+                        ? newsItem.images[0].url
+                        : newsImagePlaceholder
+                    }
                     title="news image"
                   />
                   <CardContent>
