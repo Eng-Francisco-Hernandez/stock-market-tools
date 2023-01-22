@@ -12,4 +12,8 @@ export const Navigation: { [key: string]: RouteNavigationType } = {
     element: "Symbol",
     path: "/symbol",
   },
+  NEWS: {
+    element: "News",
+    path: "/news",
+  },
 };

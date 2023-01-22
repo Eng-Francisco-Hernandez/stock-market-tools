@@ -194,7 +194,7 @@ export default function Landing() {
           return (
             <Grid key={i} item xs={6} container alignItems="stretch">
               {!newsLoading ? (
-                <Card>
+                <Card sx={{ width: "100%" }}>
                   <CardMedia
                     sx={{ height: 150 }}
                     image={
