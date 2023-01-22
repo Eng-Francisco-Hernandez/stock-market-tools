@@ -31,7 +31,6 @@ jobs:
         env:
           CI: false
           REACT_APP_TIINGO_API_KEY: ${{ secrets.REACT_APP_TIINGO_API_KEY }}
-          REACT_APP_ALPACA_MARKETS_HOST: ${{ secrets.REACT_APP_ALPACA_MARKETS_HOST }}
           REACT_APP_ALPACA_KEY_ID: ${{ secrets.REACT_APP_ALPACA_KEY_ID }}
           REACT_APP_ALPACA_SECRET_KEY: ${{ secrets.REACT_APP_ALPACA_SECRET_KEY }}
       - name: Deploy to gh-pages

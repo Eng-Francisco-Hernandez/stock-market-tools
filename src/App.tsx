@@ -1,8 +1,4 @@
-import { amber, grey } from "@mui/material/colors";
-import green from "@mui/material/colors/green";
-import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-import React from "react";
 import { Route, Routes } from "react-router-dom";
 
 import { Landing } from "./pages";
@@ -16,6 +12,11 @@ const customTheme = createTheme({
       main: "#2b884f",
       light: "#c5edd4",
       dark: "#1e6138",
+    },
+    text: {
+      primary: "#1e6138",
+      secondary: "#2b884f",
+      disabled: "#c5edd4",
     },
   },
 });

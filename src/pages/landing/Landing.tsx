@@ -11,8 +11,6 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import Paper from "@mui/material/Paper";
-import { styled } from "@mui/material/styles";
 import React, { useEffect, useState } from "react";
 import {
   Area,
@@ -24,22 +22,13 @@ import {
 } from "recharts";
 
 import newsImagePlaceholder from "../../assets/images/money-banner-placeholder.jpg";
-import { GraphTooltip } from "../../components";
-import { AlpacaClient, TiingoClient } from "../../financial-market";
+import { CustomItemContainer, GraphTooltip } from "../../components";
+import { AlpacaClient } from "../../financial-market";
 import { graphsDescriptions } from "../../util-constants";
 import { BarObject, GraphSettings, NewsItem } from "../../util-types";
 import { SidebarLayout } from "../shared";
 
 import "./landing.scss";
-
-const GraphContainer = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: "center",
-  color: theme.palette.text.secondary,
-  height: "100%",
-}));
 
 export default function Landing() {
   const alpacaClient = new AlpacaClient();
@@ -84,7 +73,7 @@ export default function Landing() {
 
   const BarObjects: GraphSettings[] = [
     {
-      ticker: "SPY",
+      symbol: "SPY",
       title: "S&P 500",
       data: landingGraphsData.SPY,
       strokeWidth: 2,
@@ -94,7 +83,7 @@ export default function Landing() {
       fill: "#309c5e",
     },
     {
-      ticker: "QQQ",
+      symbol: "QQQ",
       title: "QQQ",
       data: landingGraphsData.QQQ,
       strokeWidth: 2,
@@ -104,7 +93,7 @@ export default function Landing() {
       fill: "#309c5e",
     },
     {
-      ticker: "DIA",
+      symbol: "DIA",
       title: "DOW",
       data: landingGraphsData.DIA,
       strokeWidth: 2,
@@ -121,13 +110,13 @@ export default function Landing() {
         {BarObjects.map((BarObject, i) => {
           return (
             <Grid key={i} item xs={4}>
-              <GraphContainer>
+              <CustomItemContainer>
                 <div className="graph-title-container">
                   <Typography variant="h6" color="darkgreen" className="mr-sm">
                     {BarObject.title}
                   </Typography>
                   <Tooltip
-                    title={graphsDescriptions[BarObject.ticker]}
+                    title={graphsDescriptions[BarObject.symbol]}
                     placement="bottom"
                     arrow
                   >
@@ -192,10 +181,15 @@ export default function Landing() {
                     </div>
                   )}
                 </ResponsiveContainer>
-              </GraphContainer>
+              </CustomItemContainer>
             </Grid>
           );
         })}
+        <Grid item xs={12}>
+          <Typography variant="h5" component="div">
+            Latest news
+          </Typography>
+        </Grid>
         {latestNews.map((newsItem, i) => {
           return (
             <Grid key={i} item xs={6} container alignItems="stretch">
