@@ -26,6 +26,27 @@ const marketData = {
     const data = response.data;
     return data;
   },
+  bars: async function (
+    this: AlpacaClient,
+    symbol: string,
+    startDate: string,
+    endDate: string,
+    timeFrame: string
+  ) {
+    const headers = {
+      "Apca-Api-Key-Id": this.keyId,
+      "Apca-Api-Secret-Key": this.secretKey,
+    };
+    const options = {
+      headers: headers,
+    };
+    const response = await axios.get(
+      `${this.marketsHost}/v2/stocks/${symbol}/bars?start=${startDate}&end=${endDate}&timeframe=${timeFrame}`,
+      options
+    );
+    const data = response.data;
+    return data;
+  },
 };
 
 export default marketData;

@@ -1,4 +1,5 @@
 import HomeIcon from "@mui/icons-material/Home";
+import SearchIcon from "@mui/icons-material/Search";
 import {
   Divider,
   List,
@@ -21,9 +22,14 @@ interface MenuItem {
 
 const menuItems: Array<MenuItem> = [
   {
-    title: "Home",
+    title: "Landing",
     path: Navigation.LANDING.path,
     icon: <HomeIcon />,
+  },
+  {
+    title: "Symbol",
+    path: Navigation.SYMBOL.path,
+    icon: <SearchIcon />,
   },
 ];
 

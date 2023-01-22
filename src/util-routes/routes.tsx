@@ -1,10 +1,11 @@
 import * as React from "react";
 
-import { Landing } from "../pages";
+import { Landing, Symbol } from "../pages";
 import { Navigation } from "../util-navigation/navigation";
 
 const routeComponents: { [key: string]: React.ReactNode } = {
   Landing: <Landing />,
+  Symbol: <Symbol />,
 };
 
 export type RouteNavigationType = {
