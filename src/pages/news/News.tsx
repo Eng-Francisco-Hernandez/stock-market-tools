@@ -52,7 +52,7 @@ export default function News() {
     if (showInvalidSymbol) setShowInvalidSymbol(false);
     setNewsLoading(true);
     try {
-      const symbolInfo = await alpacaClient.assetBySymbol(currentSymbol);
+      await alpacaClient.assetBySymbol(currentSymbol);
       const today = new Date();
       const endDate = new Date(today.setDate(today.getDate() - 2))
         .toISOString()
