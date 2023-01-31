@@ -8,4 +8,12 @@ export const Navigation: { [key: string]: RouteNavigationType } = {
     element: "Landing",
     path: "/landing",
   },
+  SYMBOL: {
+    element: "Symbol",
+    path: "/symbol",
+  },
+  NEWS: {
+    element: "News",
+    path: "/news",
+  },
 };

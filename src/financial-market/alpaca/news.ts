@@ -22,7 +22,7 @@ const news = {
       formattedSymbols = `&symbols=${symbols.join(",")}`;
     }
     const response = await axios.get(
-      `${this.marketsHost}/v1beta1/news?start=${startDate}&end=${endDate}&limit=${limit}`,
+      `${this.marketsHost}/v1beta1/news?start=${startDate}&end=${endDate}&limit=${limit}${formattedSymbols}`,
       options
     );
     const data = response.data;
